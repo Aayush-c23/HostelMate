@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Leave - HostelMate</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" href="assets/logo.png" type="image/png">
+</head>
+<body class="dashboard-body">
+    <main class="main-content">
+        <div class="top-bar">
+            <div class="page-title">
+                <h2>Leave Requests</h2>
+                <p style="color:var(--text-muted)">Manage student permissions.</p>
+            </div>
+            <div class="user-profile"></div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Room</th>
+                        <th>Dates</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="leave-table">
+                    </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/layout.js"></script>
+    <script>
+        // --- LOAD AND RENDER LEAVES ---
+        function renderTable() {
+            const leaves = Storage.get('hm_leaves');
+            const tbody = document.getElementById('leave-table');
+            
+            if (leaves.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">No requests found.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = '';
+            // Show newest first
+            leaves.reverse().forEach((leave, index) => {
+                // Adjust index for original array
+                const originalIndex = leaves.length - 1 - index;
+                
+                let actionBtns = '';
+                if(leave.status === 'Pending') {
+                    actionBtns = `
+                        <button onclick="updateStatus(${originalIndex}, 'Approved')" class="btn btn-primary" style="padding:5px 15px; font-size:0.8rem; background:#10B981; border:none; box-shadow:none;">Approve</button>
+                        <button onclick="updateStatus(${originalIndex}, 'Rejected')" class="btn" style="padding:5px 15px; font-size:0.8rem; background:#EF4444; color:white; border:none;">Reject</button>
+                    `;
+                } else {
+                    actionBtns = `<span style="color:gray; font-size:0.9rem;">No actions</span>`;
+                }
+
+                const row = `
+                    <tr>
+                        <td style="font-weight:600;">${leave.studentName || 'Student'}</td>
+                        <td style="color:gray;">${leave.room || '304-B'}</td>
+                        <td>${leave.from} <span style="color:gray; font-size:0.8rem;">to</span> ${leave.to}</td>
+                        <td>${leave.reason}</td>
+                        <td><span class="status-badge status-${leave.status}">${leave.status}</span></td>
+                        <td style="display:flex; gap:10px;">${actionBtns}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        // --- HANDLE APPROVE/REJECT ---
+        window.updateStatus = function(index, newStatus) {
+            const leaves = Storage.get('hm_leaves');
+            leaves[index].status = newStatus;
+            Storage.set('hm_leaves', leaves);
+            renderTable(); // Refresh UI
+            alert(`Request ${newStatus}!`);
+        };
+
+        renderTable();
+    </script>
+</body>
+</html>

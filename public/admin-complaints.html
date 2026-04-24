@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Complaints - HostelMate</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" href="assets/logo.png" type="image/png">
+</head>
+<body class="dashboard-body">
+    <main class="main-content">
+        <div class="top-bar">
+            <div class="page-title">
+                <h2>Complaints</h2>
+                <p style="color:var(--text-muted)">Track and resolve facility issues.</p>
+            </div>
+            <div class="user-profile"></div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Student</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="complaint-table">
+                    </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/layout.js"></script>
+    <script>
+        // --- LOAD AND RENDER COMPLAINTS ---
+        function renderTable() {
+            const complaints = Storage.get('hm_complaints');
+            const tbody = document.getElementById('complaint-table');
+
+            if (complaints.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">No complaints found.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = '';
+            complaints.reverse().forEach((c, index) => {
+                const originalIndex = complaints.length - 1 - index;
+                
+                let actionBtn = '';
+                if(c.status === 'Pending') {
+                    actionBtn = `<button onclick="resolveIssue(${originalIndex})" class="btn btn-primary" style="padding:5px 15px; font-size:0.8rem; box-shadow:none;">Mark Resolved</button>`;
+                } else {
+                    actionBtn = `<span style="color:#10B981; font-weight:600;">✓ Done</span>`;
+                }
+
+                const row = `
+                    <tr>
+                        <td style="color:gray;">#${c.id}</td>
+                        <td><span style="font-weight:600;">${c.category}</span></td>
+                        <td style="max-width:300px;">${c.desc}</td>
+                        <td>${c.studentName || 'Student'} <br><span style="font-size:0.8rem; color:gray;">${c.room || '304-B'}</span></td>
+                        <td><span class="status-badge status-${c.status}">${c.status}</span></td>
+                        <td>${actionBtn}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        // --- HANDLE RESOLVE ---
+        window.resolveIssue = function(index) {
+            if(confirm('Mark this issue as fixed?')) {
+                const complaints = Storage.get('hm_complaints');
+                complaints[index].status = 'Resolved';
+                Storage.set('hm_complaints', complaints);
+                renderTable();
+            }
+        };
+
+        renderTable();
+    </script>
+</body>
+</html>

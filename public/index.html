@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HostelMate - Smart Campus</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/logo.png" type="image/png">
+    
+    <style>
+        /* --- LANDING PAGE SPECIFIC STYLES --- */
+        body {
+            overflow: hidden; /* Prevent scrolling */
+            height: 100vh;
+        }
+
+        .hero-section {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Aligns text to top */
+            padding-top: 15vh; /* Pushes text down slightly from very top */
+            text-align: center;
+            position: relative;
+
+            /* BACKGROUND IMAGE CONFIGURATION */
+            background-image: url('assets/images/hero-bg.png'); 
+            background-size: cover;
+            background-position: center bottom; /* Focus on the students at bottom */
+            background-repeat: no-repeat;
+            
+            /* Fallback Gradient if image is missing */
+            background-color: #EBF1FF; 
+        }
+
+        /* Dark overlay to make text pop if image is too bright (Optional) */
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 40%);
+            z-index: 1; pointer-events: none;
+        }
+
+        .hero-content {
+            z-index: 2; /* Ensures text stays above background */
+            position: relative;
+            width: 100%;
+        }
+
+        /* TEXT STYLING (High in the sky) */
+        .hero-title-main {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 800;
+            font-size: 5rem;
+            color: #1F2937;
+            margin-bottom: 0px;
+            text-shadow: 2px 2px 0px #FFFFFF, 0 0 20px rgba(255,255,255,0.8);
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #4B5563;
+            text-shadow: 1px 1px 0 #FFF;
+            margin-top: 10px;
+        }
+
+        /* BUTTONS (Pushed down to bottom) */
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 45vh; /* Pushes buttons way down */
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" style="position: absolute; z-index: 10; width: 100%; padding: 1.5rem 3rem;">
+        <div class="brand" style="display:flex; align-items:center; gap:10px;">
+            <img src="assets/logo.png" alt="Logo" style="height: 40px;">
+            <span style="font-size:1.5rem; font-weight:800; color:#1F2937;">HostelMate.</span>
+        </div>
+        <div>
+            <a href="login.html?role=student" style="font-weight:600; color:#1F2937; margin-right:20px;">Student</a>
+            <a href="login.html?role=admin" style="font-weight:600; color:#1F2937;">Admin</a>
+        </div>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <h1 class="hero-title-main">HostelMate</h1>
+            <p class="hero-subtitle">The smartest way to manage your campus life.</p>
+            
+            <div class="hero-buttons">
+                <a href="login.html?role=student" class="btn btn-primary" style="padding: 1rem 3rem; font-size: 1.1rem; box-shadow: 0 10px 25px rgba(79, 134, 247, 0.4);">Student Login</a>
+                <a href="login.html?role=admin" class="btn btn-outline" style="padding: 1rem 3rem; font-size: 1.1rem; background:white;">Admin Login</a>
+            </div>
+        </div>
+    </header>
+
+</body>
+</html>

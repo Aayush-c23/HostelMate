@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lost & Found - HostelMate</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" href="assets/logo.png" type="image/png">
+</head>
+<body class="dashboard-body">
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/layout.js"></script>
+
+    <main class="main-content">
+        <div class="top-bar">
+            <div>
+                <h2 style="font-size: 2rem; font-weight: 800; color: var(--text-main);">Lost & Found</h2>
+                <p style="color: var(--text-muted);">Report lost items or claim found ones.</p>
+            </div>
+            <div class="user-profile"></div>
+        </div>
+
+        <div class="card" style="margin-bottom: 2rem; border: 2px dashed #4F86F7;">
+            <h3 style="margin-bottom: 1rem;">📢 Report an Item</h3>
+            <form id="lostFoundForm" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 150px;">
+                    <label style="font-size: 0.9rem; font-weight: 600;">I...</label>
+                    <select id="type" class="form-control">
+                        <option value="Lost">Lost something</option>
+                        <option value="Found">Found something</option>
+                    </select>
+                </div>
+                <div style="flex: 2; min-width: 200px;">
+                    <label style="font-size: 0.9rem; font-weight: 600;">Item Name</label>
+                    <input id="itemName" class="form-control" placeholder="e.g. Blue Water Bottle" required>
+                </div>
+                <div style="flex: 2; min-width: 200px;">
+                    <label style="font-size: 0.9rem; font-weight: 600;">Location/Details</label>
+                    <input id="itemDesc" class="form-control" placeholder="e.g. Near Library stairs" required>
+                </div>
+                <button class="btn btn-primary" style="height: 50px;">Post Item</button>
+            </form>
+        </div>
+
+        <h3 style="margin-bottom: 1rem;">Recent Listings</h3>
+        <div id="itemsGrid" class="grid-container">
+            </div>
+    </main>
+
+    <script src="scripts/lostfound.js"></script>
+</body>
+</html>

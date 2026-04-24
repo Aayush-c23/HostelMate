@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance - HostelMate</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" href="assets/logo.png" type="image/png">
+</head>
+<body class="dashboard-body">
+
+    <main class="main-content">
+        <div class="top-bar">
+            <div>
+                <h2 style="font-size: 2rem; font-weight: 800; color: var(--text-main);">Attendance</h2>
+                <p style="color: var(--text-muted);">Mark or view past attendance.</p>
+            </div>
+            <div class="user-profile"></div>
+        </div>
+
+        <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; gap:10px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <label style="font-weight:600;">Select Date:</label>
+                    <input type="date" id="attendanceDate" class="form-control" style="width: auto;">
+                </div>
+                <button onclick="saveAttendance()" class="btn btn-primary">💾 Save Attendance</button>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Room</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendanceList">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/layout.js"></script>
+    <script src="scripts/attendance.js"></script>
+</body>
+</html>

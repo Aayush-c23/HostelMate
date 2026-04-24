@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notices - HostelMate</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" href="assets/logo.png" type="image/png">
+</head>
+<body class="dashboard-body">
+    <main class="main-content">
+        <div class="top-bar">
+            <div class="page-title">
+                <h2>Notice Board</h2>
+                <p style="color:var(--text-muted)">Latest updates from the warden.</p>
+            </div>
+            <div class="user-profile"></div>
+        </div>
+
+        <div class="grid-container" id="notice-list">
+            </div>
+    </main>
+
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/layout.js"></script>
+    <script>
+        // Inline script to load notices
+        const notices = Storage.get('hm_notices');
+        const container = document.getElementById('notice-list');
+        
+        if(notices.length === 0) {
+            container.innerHTML = '<p>No notices found.</p>';
+        } else {
+            notices.forEach(n => {
+                container.innerHTML += `
+                    <div class="card" style="border-left: 5px solid var(--primary);">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                            <span class="status-badge status-Approved">IMPORTANT</span>
+                            <span style="color:gray; font-size:0.9rem;">${n.date}</span>
+                        </div>
+                        <h3 style="margin-bottom:0.5rem;">${n.title}</h3>
+                        <p style="color:var(--text-muted);">${n.content}</p>
+                    </div>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>

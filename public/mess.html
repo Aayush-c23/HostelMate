@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mess Menu - HostelMate</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" href="assets/logo.png" type="image/png">
+</head>
+<body class="dashboard-body">
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/layout.js"></script>
+
+    <main class="main-content">
+        <div class="top-bar">
+            <div class="page-title">
+                <h2>Mess Menu</h2>
+                <p>Weekly food schedule.</p>
+            </div>
+            <div class="user-profile"></div>
+        </div>
+
+        <div id="admin-mess-controls" class="card" style="display:none; margin-bottom: 2rem; background: #FFF7ED; border: 1px solid #FFEDD5;">
+            <h3 style="margin-bottom:1rem; color:#C2410C;">✏️ Update Menu</h3>
+            <form id="messEditForm" style="display:flex; gap:10px; flex-wrap:wrap;">
+                <select id="editDay" class="form-control" style="flex:1; min-width:100px;">
+                    <option value="Mon">Monday</option>
+                    <option value="Tue">Tuesday</option>
+                    <option value="Wed">Wednesday</option>
+                    <option value="Thu">Thursday</option>
+                    <option value="Fri">Friday</option>
+                    <option value="Sat">Saturday</option>
+                    <option value="Sun">Sunday</option>
+                </select>
+                <select id="editMeal" class="form-control" style="flex:1; min-width:100px;">
+                    <option value="b">Breakfast</option>
+                    <option value="l">Lunch</option>
+                    <option value="d">Dinner</option>
+                </select>
+                <input id="editFood" class="form-control" placeholder="New Food Item (e.g. Special Biryani)" style="flex:2; min-width:200px;" required>
+                <button type="submit" class="btn btn-primary" style="background:#C2410C; border:none;">Update</button>
+            </form>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:100px;">Day</th>
+                        <th>Breakfast</th>
+                        <th>Lunch</th>
+                        <th>Dinner</th>
+                    </tr>
+                </thead>
+                <tbody id="messTable">
+                    </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="scripts/mess.js"></script>
+</body>
+</html>

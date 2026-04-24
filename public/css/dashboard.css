@@ -1,0 +1,110 @@
+/* --- DASHBOARD LAYOUT --- */
+body.dashboard-body { background-color: #F0F4F8; display: flex; height: 100vh; overflow: hidden; }
+
+/* --- SIDEBAR (Claymorphism) --- */
+/* --- SIDEBAR (Fixed Layout) --- */
+.sidebar { 
+    width: 280px; margin: 1.5rem; border-radius: 24px; 
+    background: white; 
+    box-shadow: var(--shadow-clay);
+    display: flex; flex-direction: column; 
+    height: calc(100vh - 3rem); /* Full height minus margins */
+    flex-shrink: 0;
+    overflow: hidden; /* Prevents ugly outer scrollbars */
+}
+
+.sidebar-header { 
+    padding: 2rem 0 1rem 0; /* Adjust padding around logo */
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; /* Logo never shrinks */
+}
+.sidebar-header img { height: 45px; width: auto; }
+
+/* The Menu Items Container */
+.nav-links { 
+    display: flex; flex-direction: column; gap: 0.5rem; 
+    padding: 0 1.5rem; /* Padding moves inside here */
+    overflow-y: auto; /* SCROLLS if items are too many */
+    flex-grow: 1; /* Takes up all available middle space */
+    
+    /* Hide Scrollbar for clean look */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.nav-links::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+.nav-item { 
+    display: flex; align-items: center; gap: 14px; padding: 0.8rem 1.2rem; 
+    color: var(--text-muted); border-radius: 16px; font-weight: 600; 
+    transition: all 0.2s ease;
+    flex-shrink: 0; /* Prevents items from squishing */
+}
+
+/* Hover & Active States */
+.nav-item:hover { background: #F8FAFC; color: var(--primary); transform: translateX(5px); }
+.nav-item.active { 
+    background: #EFF6FF; color: var(--primary); 
+    box-shadow: inset 4px 4px 8px #DBEAFE, inset -4px -4px 8px #FFFFFF; 
+}
+.nav-icon { width: 20px; height: 20px; object-fit: contain; opacity: 0.7; }
+.nav-item.active .nav-icon { opacity: 1; }
+
+/* Logout Button Pinned to Bottom */
+.logout-btn { 
+    margin-top: auto; /* Pushes to bottom if there's space */
+    margin-bottom: 1.5rem; /* Space from bottom edge */
+    color: #EF4444; 
+    margin-left: 1.5rem; margin-right: 1.5rem; /* Add margins back */
+}
+.logout-btn:hover { background: #FEF2F2; color: #EF4444; }
+/* --- MAIN CONTENT AREA --- */
+.main-content { flex: 1; padding: 1.5rem 2rem; overflow-y: auto; }
+
+.top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.page-title h2 { font-size: 2.2rem; font-weight: 800; color: var(--text-main); letter-spacing: -1px; }
+.user-profile { display: flex; align-items: center; gap: 15px; }
+.avatar-img { width: 50px; height: 50px; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+/* --- CARDS & GRID --- */
+.grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+
+.card {
+    background: white; border-radius: 24px; padding: 2rem;
+    box-shadow: var(--shadow-clay); /* Floating Clay Effect */
+    border: 1px solid white;
+}
+.card-title { font-size: 1rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.card-value { font-size: 2.5rem; font-weight: 800; color: var(--text-main); margin-top: 0.5rem; }
+
+/* --- TABLES --- */
+.table-container { 
+    background: white; border-radius: 24px; padding: 1.5rem; 
+    box-shadow: var(--shadow-clay); 
+}
+table { width: 100%; border-collapse: separate; border-spacing: 0 10px; } /* Spacing between rows */
+
+th { 
+    color: var(--text-muted); padding: 0 1.5rem; text-align: left; 
+    font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;
+}
+td { 
+    background: #F8FAFC; padding: 1.2rem 1.5rem; 
+    color: var(--text-main); font-weight: 500;
+}
+/* Rounding the first and last cells of every row */
+tr td:first-child { border-top-left-radius: 16px; border-bottom-left-radius: 16px; }
+tr td:last-child { border-top-right-radius: 16px; border-bottom-right-radius: 16px; }
+
+/* --- BADGES --- */
+.status-badge { padding: 8px 16px; border-radius: 30px; font-size: 0.85rem; font-weight: 700; }
+.status-Pending { background: #FFF7ED; color: #F97316; }
+.status-Approved, .status-Resolved, .status-Present { background: #ECFDF5; color: #10B981; }
+.status-Rejected, .status-Absent { background: #FEF2F2; color: #EF4444; }
+
+/* --- PAGE HEADER BANNER (Mess, etc) --- */
+.page-header-flex {
+    display: flex; align-items: center; justify-content: space-between;
+    background: white; padding: 2rem; border-radius: 24px; margin-bottom: 2rem;
+    box-shadow: var(--shadow-clay);
+}
+.header-img { height: 120px; width: auto; object-fit: contain; }

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Room - HostelMate</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" href="assets/logo.png" type="image/png">
+</head>
+<body class="dashboard-body">
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/layout.js"></script>
+
+    <main class="main-content">
+        <div class="top-bar">
+            <div>
+                <h2 style="font-size: 2rem; font-weight: 800; color: var(--text-main);">My Room</h2>
+                <p style="color: var(--text-muted);">Manage room services.</p>
+            </div>
+            <div class="user-profile"></div>
+        </div>
+
+        <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+            
+            <div class="card" style="flex: 1; min-width: 300px; text-align: center;">
+                <img src="assets/icons/icon-room.png" style="width: 80px; opacity: 0.8; margin-bottom: 1rem;">
+                <h2 style="font-size: 3rem; font-weight: 800; color: var(--primary);" id="displayRoom">Loading...</h2>
+                <p style="color: gray; font-weight: 600;">BH-1 Hostel, Block A</p>
+                
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 2rem 0;">
+
+                <h3 style="margin-bottom: 1rem;">Housekeeping</h3>
+                <button id="btnClean" class="btn btn-outline" style="width: 100%; font-size: 1.1rem; padding: 1rem;">
+                    🧹 Request Room Cleaning
+                </button>
+                <p id="cleanStatus" style="font-size: 0.9rem; color: gray; margin-top: 10px; display: none;">
+                    Request sent for today.
+                </p>
+            </div>
+
+            <div class="card" style="flex: 1; min-width: 300px;">
+                <h3 style="margin-bottom: 1.5rem;">Roommates</h3>
+                <div class="table-container" style="box-shadow: none; border: 1px solid #eee;">
+                    <table>
+                        <tbody id="roommateList">
+                            <tr>
+                                <td style="font-weight: 600;">You</td>
+                                <td style="text-align: right;"><span class="status-badge status-Present">Present</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">Amit Verma</td>
+                                <td style="text-align: right;"><span class="status-badge status-Absent">On Leave</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">Sandeep K.</td>
+                                <td style="text-align: right;"><span class="status-badge status-Present">Present</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="scripts/room.js"></script>
+</body>
+</html>

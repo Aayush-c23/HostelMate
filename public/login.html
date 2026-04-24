@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - HostelMate</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- PAGE SPECIFIC STYLES --- */
+        body {
+            height: 100vh;
+            display: flex;
+            overflow: hidden; /* No scrolling */
+            background-color: #FFFFFF;
+        }
+
+        /* LEFT SIDE: IMAGE */
+        .login-image-section {
+            width: 50%;
+            height: 100vh;
+            background-color: #EBF1FF; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures image fills the left side perfectly */
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        /* Animation class for switching images */
+        .fade-out { opacity: 0; }
+
+        /* RIGHT SIDE: FORM */
+        .login-form-section {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%; /* Comfortable padding */
+            background: white;
+            position: relative;
+        }
+
+        /* Branding Header */
+        .brand-header {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 3rem; 
+        }
+
+        .welcome-text h1 {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 2.5rem; 
+            font-weight: 800; 
+            color: #1F2937;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        .welcome-text p { color: #64748B; margin-bottom: 2.5rem; font-size: .95rem; }
+
+        /* Inputs */
+        .form-group { margin-bottom: 1.5rem; }
+        .form-label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151; font-size: 0.95rem; }
+        .form-input {
+            width: 100%; padding: 1rem; border: none; 
+            background: #F3F4F6; /* Light gray input */
+            border-radius: 12px; font-size: 1rem; outline: none;
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.05); /* Subtle inner shadow */
+            transition: all 0.2s;
+        }
+        .form-input:focus { background: white; box-shadow: 0 0 0 3px rgba(79, 134, 247, 0.2); }
+
+        /* Switcher Link */
+        .switch-role-container {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #64748B;
+        }
+        .switch-role-link {
+            color: #4F86F7;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .switch-role-link:hover { color: #2563EB; text-decoration: underline; }
+
+        .back-link {
+            margin-top: 2rem; text-align: center; display: block;
+            color: #9CA3AF; text-decoration: none; font-size: 0.9rem; font-weight: 500;
+        }
+        .back-link:hover { color: #4F86F7; }
+
+        #errorMsg {
+            color: #EF4444; background: #FEF2F2; padding: 12px;
+            border-radius: 8px; margin-top: 15px; text-align: center;
+            display: none; font-weight: 500;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 900px) {
+            .login-image-section { display: none; }
+            .login-form-section { width: 100%; padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-image-section">
+        <img id="dynamic-login-img" src="assets/images/login-student.png" alt="Login Illustration" class="login-img">
+    </div>
+
+    <div class="login-form-section">
+        <div class="brand-header">
+            <img src="assets/logo.png" alt="HostelMate Logo" style="height: 55px; width: auto;">
+            <span style="font-size: 2.5rem; font-weight: 800; color: #1F2937;">HostelMate.</span>
+        </div>
+
+        <div class="welcome-text">
+            <h1 id="role-display-title"> Student Login</h1>
+            <p> Please sign in to manage your campus life.</p>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" id="email" class="form-input" placeholder="name@hostel.com" value="student@hostel.com" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input type="password" id="password" class="form-input" placeholder="••••••••" value="123" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; border-radius: 12px; margin-top: 1rem;">Sign In</button>
+            <p id="errorMsg"></p>
+
+            <div class="switch-role-container">
+                <span id="switch-text">Not a student? </span>
+                <span id="role-switch-btn" class="switch-role-link">Login as Admin</span>
+            </div>
+            
+            <a href="index.html" class="back-link">← Back to Home Page</a>
+        </form>
+    </div>
+
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/auth.js"></script>
+    
+    <script>
+        // --- CONFIGURATION ---
+        let currentRole = 'student'; 
+        const studentImgPath = 'assets/images/login-student.png';
+        const adminImgPath = 'assets/images/login-admin.png';
+        
+        // --- ELEMENTS ---
+        const imgElement = document.getElementById('dynamic-login-img');
+        const titleElement = document.getElementById('role-display-title');
+        const emailInput = document.getElementById('email');
+        const switchBtn = document.getElementById('role-switch-btn');
+        const switchText = document.getElementById('switch-text');
+
+        // --- SWITCH ROLE FUNCTION ---
+        function toggleRole() {
+            // 1. Fade out image
+            imgElement.classList.add('fade-out');
+
+            // 2. Wait for fade, then swap content
+            setTimeout(() => {
+                if (currentRole === 'student') {
+                    // Change to Admin
+                    currentRole = 'admin';
+                    imgElement.src = adminImgPath;
+                    titleElement.innerText = 'Admin Login';
+                    emailInput.value = 'admin@hostel.com'; // Auto-fill for demo
+                    switchBtn.innerText = 'Login as Student';
+                    switchText.innerText = 'Not an admin? ';
+                } else {
+                    // Change to Student
+                    currentRole = 'student';
+                    imgElement.src = studentImgPath;
+                    titleElement.innerText = 'Student Login';
+                    emailInput.value = 'student@hostel.com'; // Auto-fill for demo
+                    switchBtn.innerText = 'Login as Admin';
+                    switchText.innerText = 'Not a student? ';
+                }
+                // 3. Fade image back in
+                imgElement.classList.remove('fade-out');
+            }, 300);
+        }
+
+        // Event Listener
+        switchBtn.addEventListener('click', toggleRole);
+
+        // Check URL for ?role=admin (from Landing Page)
+        const urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.get('role') === 'admin') {
+            toggleRole();
+        }
+
+        // --- LOGIN SUBMISSION ---
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = emailInput.value;
+            const password = document.getElementById('password').value;
+            
+            // Call login function from auth.js
+            const res = await login(email, password);
+            
+            if(!res.success) {
+                const errDiv = document.getElementById('errorMsg');
+                errDiv.style.display = 'block';
+                errDiv.innerText = res.message || 'Login failed';
+            }
+        });
+    </script>
+</body>
+</html>
