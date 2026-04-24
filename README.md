@@ -134,7 +134,9 @@ This project is deployed on **Vercel**. To deploy your own instance:
 ## Author
 
 **Aayush Chougule**  
-[GitHub](https://github.com/aayush2006chougule) 
+[GitHub](https://github.com/Aayush-c23/) 
+
+
 
 ---
 
